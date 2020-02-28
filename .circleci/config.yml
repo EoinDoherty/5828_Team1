@@ -2,7 +2,7 @@ version: 2.1
 
 orbs:
   python: circleci/python@0.2.1
-  gcp-cli: circleci/gcp-cli@1.8.3 # Maybe get rid of this?
+  # gcp-cli: circleci/gcp-cli@1.8.3 # Maybe get rid of this?
 
 jobs:
   build-and-test:
