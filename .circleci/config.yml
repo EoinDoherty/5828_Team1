@@ -25,7 +25,13 @@ jobs:
     executor: gcp-cli/google
     steps:
 #      - gcp-cli/install
-      - gcp-cli/initialize
+      #- gcp-cli/initialize
+      - run:
+          name: Authenticate with google cloud
+          command: |
+            echo $GCLOUD_SERVICE_KEY > ${HOME}/gcloud-service-key.json
+            gcloud auth activate-service-account --key-file=${HOME}/gcloud-service-key.json
+            gcloud --quiet config set project $GOOGLE_PROJECT_ID
       - checkout
       # - run:
       #     name: Authenticate with google cloud
