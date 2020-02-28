@@ -2,7 +2,7 @@ version: 2.1
 
 orbs:
   python: circleci/python@0.2.1
-  gcp-cli: circleci/gcp-cli@1.8.3
+  gcp-cli: circleci/gcp-cli@1.8.3 # Maybe get rid of this?
 
 jobs:
   build-and-test:
@@ -21,6 +21,7 @@ jobs:
     docker:
       - image: google/cloud-sdk:alpine
     steps:
+      - checkout
       - run:
           name: Authenticate with google cloud
           command: |
@@ -28,8 +29,7 @@ jobs:
             gcloud auth activate-service-account --key-file=/home/circleci/gcpkey.json
       - run:
           name: Deploy to app engine
-          command:
-            gcloud app deploy -q app.yaml --project team1project
+          command: gcloud app deploy -q app.yaml --project team1project
 
 workflows:
   version: 2
