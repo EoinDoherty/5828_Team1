@@ -17,7 +17,13 @@ jobs:
           name: Test
 
   deploy:
+    filters:
+      branches:
+        only:
+          - master
     working_directory: /home/circleci/5828_Team1
+    docker:
+      image: google/cloud-sdk:alpine
     steps:
       - run:
           name: Authenticate with google cloud
@@ -33,5 +39,7 @@ workflows:
   main:
     jobs:
       - build-and-test
-      - deploy
+      - deploy:
+          requires:
+            build-and-test
 
