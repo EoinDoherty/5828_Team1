@@ -1,4 +1,4 @@
-version: 2.1
+version: 2.0
 
 orbs:
   python: circleci/python@0.2.1
@@ -23,7 +23,7 @@ jobs:
           - master
     working_directory: /home/circleci/5828_Team1
     docker:
-      image: google/cloud-sdk:alpine
+      - image: google/cloud-sdk:alpine
     steps:
       - run:
           name: Authenticate with google cloud
@@ -33,13 +33,14 @@ jobs:
       - run:
           name: Deploy to app engine
           command:
-            gcloud app deploy app.yaml --project team1project
+            gcloud app deploy -q app.yaml --project team1project
 
 workflows:
+  version: 2
   main:
     jobs:
       - build-and-test
       - deploy:
           requires:
-            build-and-test
+            - build-and-test
 
