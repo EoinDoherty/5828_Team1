@@ -1,4 +1,4 @@
-version: 2.0
+version: 2.1
 
 orbs:
   python: circleci/python@0.2.1
@@ -17,10 +17,6 @@ jobs:
           name: Test
 
   deploy:
-    filters:
-      branches:
-        only:
-          - master
     working_directory: /home/circleci/5828_Team1
     docker:
       - image: google/cloud-sdk:alpine
@@ -43,4 +39,7 @@ workflows:
       - deploy:
           requires:
             - build-and-test
-
+          filters:
+            branches:
+              only:
+                - master
