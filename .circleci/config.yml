@@ -29,7 +29,7 @@ jobs:
       - run:
           name: Add secrets to app.yaml
           command: |
-            echo "env_variables" >> app.yaml
+            echo "env_variables:" >> app.yaml
             echo "  DB_USER: $DB_USER" >> app.yaml
             echo "  DB_PASS: $DB_PASS" >> app.yaml
             echo "  DB_NAME: $DB_NAME" >> app.yaml
