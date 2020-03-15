@@ -26,9 +26,18 @@ jobs:
             gcloud auth activate-service-account --key-file=${HOME}/gcloud-service-key.json
             gcloud --quiet config set project $GOOGLE_PROJECT_ID
       - checkout
+      -run:
+        name: Add secrets to app.yaml
+        command: |
+          echo "env_variables" >> app.yaml
+          echo "  DB_USER: $DB_USER" >> app.yaml
+          echo "  DB_PASS: $DB_PASS" >> app.yaml
+          echo "  DB_NAME: $DB_NAME" >> app.yaml
+          echo "  DB_ADDR: $DB_ADDR" >> app.yaml
       - run:
           name: Deploy to app engine
-          command: gcloud app deploy -q app.yaml
+          command: |
+            gcloud app deploy -q app.yaml
 
 workflows:
   version: 2
