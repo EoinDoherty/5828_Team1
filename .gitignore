@@ -15,6 +15,4 @@ build/
 
 .vscode/
 
-set_secrets.sh
-
 app/config.json
