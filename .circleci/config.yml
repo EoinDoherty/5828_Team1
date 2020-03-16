@@ -33,7 +33,7 @@ jobs:
             echo "  DB_USER: $DB_USER" >> app.yaml
             echo "  DB_PASS: $DB_PASS" >> app.yaml
             echo "  DB_NAME: $DB_NAME" >> app.yaml
-            echo "  DB_ADDR: $DB_ADDR" >> app.yaml
+            echo "  DB_HOST: $DB_HOST" >> app.yaml
       - run:
           name: Deploy to app engine
           command: |
