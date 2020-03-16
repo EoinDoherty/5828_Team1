@@ -9,6 +9,10 @@ jobs:
     executor: python/default
     steps:
       - checkout
+      - run:
+          name: Add config.json
+          command: |
+            echo $FLASK_CONFIG >> app/config.json
       - python/load-cache
       - python/install-deps
       - python/save-cache
@@ -27,13 +31,9 @@ jobs:
             gcloud --quiet config set project $GOOGLE_PROJECT_ID
       - checkout
       - run:
-          name: Add secrets to app.yaml
+          name: Add config.json
           command: |
-            echo "env_variables:" >> app.yaml
-            echo "  DB_USER: $DB_USER" >> app.yaml
-            echo "  DB_PASS: $DB_PASS" >> app.yaml
-            echo "  DB_NAME: $DB_NAME" >> app.yaml
-            echo "  DB_HOST: $DB_HOST" >> app.yaml
+            echo $FLASK_CONFIG >> app/config.json
       - run:
           name: Deploy to app engine
           command: |
