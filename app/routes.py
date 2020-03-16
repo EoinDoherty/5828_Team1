@@ -1,18 +1,11 @@
 from flask import Flask, redirect, url_for, request, render_template
 import flask_login
-from .user import User
-from app import app, login_manager
+from .auth.user import User
+from app import app
 
-# app.secret_key = b'~"\x93h\xe5s\\\xb7ME\xeajT\xe2\xbb\x19'
-login_manager.login_view = '/'
+from .auth.routes import auth_routes
 
-users = {}
-
-@login_manager.user_loader
-def load_user(uid):
-    if uid in users:
-        return users[uid]
-    return None
+app.register_blueprint(auth_routes)
 
 @app.route('/heart-beat')
 def hello():
@@ -25,36 +18,6 @@ def index():
 @app.route('/success/<name>')
 def success(name):
     return 'Welcome %s' % name
-
-@app.route('/login', methods=['POST', 'GET'])
-def login():
-    if request.method == 'POST':
-        username = request.form['nm']
-        pwd = request.form['pwd']
-    else:
-        username = request.args.get('nm')
-        pwd = request.args.get('pwd')
-    
-    user = User(username, username, "asdf")
-    users[username] = user
-    flask_login.login_user(user)
-    
-    return redirect(url_for('success', name=username))
-
-@app.route('/signup', methods=['POST', 'GET'])
-def signup():
-    if request.method == 'POST':
-        username = request.form['nm']
-        pwd = request.form['pwd']
-    else:
-        username = request.args.get('nm')
-        pwd = request.args.get('pwd')
-    
-    user = User(username, username, "asdf")
-    users[username] = user
-    flask_login.login_user(user)
-
-    return redirect(url_for('success', name=username))
 
 @app.route('/restricted')
 @flask_login.login_required
