@@ -1,12 +1,12 @@
-import os
 import pymongo
 from bson import ObjectId
 from .auth.user import user_from_bson
+from app import app
 
-db_user = os.environ["DB_USER"]
-db_pwd = os.environ["DB_PASS"]
-db_name = os.environ["DB_NAME"]
-db_host = os.environ["DB_HOST"]
+db_user = app.config["DB_USER"]
+db_pwd = app.config["DB_PASS"]
+db_name = app.config["DB_NAME"]
+db_host = app.config["DB_HOST"]
 
 client = pymongo.MongoClient(host=db_host, username=db_user, password=db_pwd)
 database = client[db_name]
