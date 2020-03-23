@@ -1,7 +1,7 @@
 from werkzeug.security import generate_password_hash, check_password_hash
 from app.db import database, get_user
 from . import login_manager
-from .user import User
+from .user import User, user_from_bson
 
 @login_manager.user_loader
 def load_user(uid):
@@ -11,7 +11,7 @@ def verify_user(username, password):
     match = database.users.find_one({"username": username})
     
     if match != None and check_password_hash(match["hash"], password):
-        return User(str(match["_id"]), username)
+        return user_from_bson(match)
     
     return False
 
