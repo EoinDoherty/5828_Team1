@@ -12,6 +12,7 @@ htmlcov/
 dist/
 build/
 *.egg-info/
+
 .vscode/
 
-set_secrets.sh
+app/config.json

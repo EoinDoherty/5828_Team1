@@ -1,6 +1,11 @@
 from flask import Flask, redirect, url_for, request, render_template
+import flask_login
+from .auth.user import User
+from app import app
 
-app = Flask(__name__)
+from .auth.routes import auth_routes
+
+app.register_blueprint(auth_routes)
 
 @app.route('/heart-beat')
 def hello():
@@ -10,20 +15,15 @@ def hello():
 def index():
    return render_template('index.html')
 
-
 @app.route('/success/<name>')
 def success(name):
     return 'Welcome %s' % name
 
-
-@app.route('/login', methods=['POST', 'GET'])
-def login():
-    if request.method == 'POST':
-        user = request.form['nm']
-        return redirect(url_for('success', name=user))
-    else:
-        user = request.args.get('nm')
-        return redirect(url_for('success', name=user))
+@app.route('/restricted')
+@flask_login.login_required
+def restricted():
+    return "secret"
 
 if __name__ == "__main__":
     app.run()
+
