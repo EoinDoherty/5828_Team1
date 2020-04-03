@@ -1,4 +1,4 @@
-from flask import Flask, redirect, url_for, request, render_template
+from flask import Flask, redirect, url_for, request, render_template, jsonify
 import flask_login
 from .auth.user import User
 from app import app
@@ -10,6 +10,11 @@ app.register_blueprint(auth_routes)
 @app.route('/heart-beat')
 def hello():
     return 'Hello, World!'
+
+@app.route('/api/heartbeat')
+def api_heartbeat():
+    print("api heartbeat called")
+    return jsonify({"text": "Connected to flask backend"})
 
 @app.route('/')
 def index():
