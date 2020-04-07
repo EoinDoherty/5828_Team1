@@ -7,7 +7,7 @@ from .auth.routes import auth_routes
 
 app.register_blueprint(auth_routes)
 
-@app.route('/heart-beat')
+@app.route('/api/heart-beat')
 def hello():
     return 'Hello, World!'
 
@@ -20,16 +20,16 @@ def api_heartbeat():
 def index():
    return render_template('index.html')
 
-@app.route('/success/<name>')
+@app.route('/api/success/<name>')
 def success(name):
     return 'Welcome %s' % name
 
-@app.route('/home', methods=['GET'])
+@app.route('/api/home', methods=['GET'])
 @jwt_required
 def home():
     return jsonify({"msg": f"Hello {get_jwt_identity()}"})
 
-@app.route('/restricted', methods=['GET'])
+@app.route('/api/restricted', methods=['GET'])
 @jwt_required
 def restricted():
     return jsonify({"msg": "secret"})

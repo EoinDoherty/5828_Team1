@@ -5,7 +5,7 @@ from .authentication import verify_user, create_new_user
 
 auth_routes = Blueprint('auth_routes', __name__)
 
-@auth_routes.route('/login', methods=['POST'])
+@auth_routes.route('/api/login', methods=['POST'])
 def login():
     if not request.is_json:
         print(request)
@@ -26,7 +26,7 @@ def login():
     
     return jsonify({"msg": "Invalid credentials"}), 401
 
-@auth_routes.route('/signup', methods=['POST'])
+@auth_routes.route('/api/signup', methods=['POST'])
 def signup():
     if not request.is_json:
         print(request)
