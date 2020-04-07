@@ -3,9 +3,9 @@ runtime: python37
 entrypoint: gunicorn main:app
 
 handlers:
-# - url: /$
-#   static_files: frontend/build/index.html
-#   upload: frontend/build/index.html
+- url: /$
+  static_files: frontend/build/index.html
+  upload: frontend/build/index.html
 
 - url: /(.*\..*)$
   static_files: frontend/build/\1
