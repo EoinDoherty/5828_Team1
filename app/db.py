@@ -15,15 +15,17 @@ database = client[db_name]
 def get_user(uid):
 	try:
 		result = database.users.find_one({"_id": ObjectId(uid)})
-		logging.info('Get user - {}'.format(uid))
+		# logging.info('Get user - {}'.format(uid))
 		if result == None:
-			logging.warning('Get user - {}'.format(uid))
+			# logging.warning('Get user - {}'.format(uid))
 			return None
 		return user_from_bson(result)
 	except:
-		logging.error('Get User - Exception occurred')
+		pass
+		# logging.error('Get User - Exception occurred')
 	finally:
-		logging.debug('Get user - {}'.format(uid))
+		pass
+		# logging.debug('Get user - {}'.format(uid))
 
 
 
