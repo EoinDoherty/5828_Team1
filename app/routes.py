@@ -1,5 +1,5 @@
 from flask import Flask, redirect, url_for, request, render_template, jsonify
-import flask_login
+from flask_jwt_extended import jwt_required, get_jwt_identity
 from .auth.user import User
 from app import app
 
@@ -14,7 +14,7 @@ def hello():
 @app.route('/api/heartbeat')
 def api_heartbeat():
     print("api heartbeat called")
-    return jsonify({"text": "Connected to flask backend"})
+    return jsonify({"msg": "Connected to flask backend"})
 
 @app.route('/')
 def index():
@@ -24,10 +24,15 @@ def index():
 def success(name):
     return 'Welcome %s' % name
 
-@app.route('/restricted')
-@flask_login.login_required
+@app.route('/home', methods=['GET'])
+@jwt_required
+def home():
+    return jsonify({"msg": f"Hello {get_jwt_identity()}"})
+
+@app.route('/restricted', methods=['GET'])
+@jwt_required
 def restricted():
-    return "secret"
+    return jsonify({"msg": "secret"})
 
 if __name__ == "__main__":
     app.run()
