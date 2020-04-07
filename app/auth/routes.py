@@ -1,46 +1,48 @@
-from flask import Blueprint, request, redirect, url_for
-from flask_login import LoginManager, login_user, logout_user, login_required
+from flask import Blueprint, request, jsonify
+from flask_jwt_extended import create_access_token
 from .user import User
-from . import login_manager
 from .authentication import verify_user, create_new_user
 
 auth_routes = Blueprint('auth_routes', __name__)
 
-@auth_routes.route('/login', methods=['POST', 'GET'])
+@auth_routes.route('/api/login', methods=['POST'])
 def login():
-    if request.method == 'POST':
-        username = request.form['nm']
-        pwd = request.form['pwd']
-    else:
-        username = request.args.get('nm')
-        pwd = request.args.get('pwd')
-
-    user = verify_user(username, pwd)
+    if not request.is_json:
+        print(request)
+        return jsonify({"msg": "Request is not JSON"}), 400
     
-    if user:
-        login_user(user)
-        return redirect(url_for('success', name=username))
+    username = request.json.get('username', None)
+    password = request.json.get('password', None)
     
-    return redirect(login_manager.login_view)
+    if not username:
+        return jsonify({"msg": "Missing username field"}), 400
+    if not password:
+        return jsonify({"msg": "Missing password field"}), 400
+    
+    access_token = verify_user(username, password)
 
-@auth_routes.route('/signup', methods=['POST', 'GET'])
+    if access_token:
+        return jsonify({"token": access_token, "msg": "Logged in"}), 200
+    
+    return jsonify({"msg": "Invalid credentials"}), 401
+
+@auth_routes.route('/api/signup', methods=['POST'])
 def signup():
-    if request.method == 'POST':
-        username = request.form['nm']
-        pwd = request.form['pwd']
-    else:
-        username = request.args.get('nm')
-        pwd = request.args.get('pwd')
+    if not request.is_json:
+        print(request)
+        return jsonify({"msg": "Request is not JSON"}), 400
     
-    user = create_new_user(username, pwd)
-    if user:
-        login_user(user)
-        return redirect(url_for('success', name=username))
+    username = request.json.get('username', None)
+    password = request.json.get('password', None)
     
-    return redirect(login_manager.login_view)
+    if not username:
+        return jsonify({"msg": "Missing username field"}), 400
+    if not password:
+        return jsonify({"msg": "Missing password field"}), 400
 
-@auth_routes.route('/logout')
-@login_required
-def logout():
-    logout_user()
-    return redirect(login_manager.login_view)
+    access_token = create_new_user(username, password)
+
+    if access_token:
+        return jsonify({"token": access_token, "msg": "Logged in"}), 200
+    
+    return jsonify({"msg": "Username taken"}), 400
