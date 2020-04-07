@@ -1,12 +1,15 @@
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_jwt_extended import create_access_token
+from datetime import timedelta
 from app.db import database
+
+EXPIRATION_DELTA = timedelta(hours=12)
 
 def verify_user(username, password):
     match = database.users.find_one({"username": username})
     
     if match != None and check_password_hash(match["hash"], password):
-        return create_access_token(identity=username)
+        return create_access_token(identity=username, expires_delta=EXPIRATION_DELTA)
     
     return False
 
@@ -21,6 +24,6 @@ def create_new_user(username, password):
     result = user_collection.insert_one({"username": username, "hash": pwd_hash})
 
     if result.acknowledged:
-        return create_access_token(identity=username)
+        return create_access_token(identity=username, expires_delta=EXPIRATION_DELTA)
     
     return False
