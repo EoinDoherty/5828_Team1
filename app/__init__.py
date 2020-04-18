@@ -1,7 +1,7 @@
 from flask import Flask
-from flask_login import LoginManager
 
 app = Flask(__name__)
 app.config.from_json("config.json")
+app.config['JWT_SECRET_KEY'] = app.config["SECRET_KEY"]
 
 from app import routes
