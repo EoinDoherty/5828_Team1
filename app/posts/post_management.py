@@ -2,6 +2,10 @@ from datetime import datetime
 from bson import ObjectId
 from app.db import database, sterilize_doc
 
+UNAUTHORIZED = 401
+NOT_FOUND = 404
+OK = 200
+
 def list_posts(username):
     posts = list(database.posts.find({"creator": username}))
 
@@ -54,4 +58,8 @@ def delete_post(username, post_id):
     post = database.posts.find_one({"_id": oid})
 
     if username == post["creator"]:
-        database.posts.remove({"_id": oid})
+        response = database.posts.remove({"_id": oid})
+        if response:
+            return OK
+        return NOT_FOUND
+    return UNAUTHORIZED

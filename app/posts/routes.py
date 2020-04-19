@@ -5,7 +5,7 @@ import app.posts.post_management as management
 
 post_routes = Blueprint('post_routes', __name__)
 
-@post_routes.route("/api/new_post", methods=["GET"])
+@post_routes.route("/api/new_post", methods=["GET", "POST"])
 @jwt_required
 def new_post():
     username = get_jwt_identity()
@@ -17,7 +17,7 @@ def new_post():
     return jsonify({"msg": "created post", "id": post_id}), 200
 
 
-@post_routes.route("/api/list_posts", methods=["GET"])
+@post_routes.route("/api/list_posts", methods=["GET", "POST"])
 @jwt_required
 def list_posts():
     username = get_jwt_identity()
@@ -28,7 +28,7 @@ def list_posts():
 
     return jsonify(reply), 200
 
-@post_routes.route("/api/update_post", methods=["GET"])
+@post_routes.route("/api/update_post", methods=["GET", "POST"])
 @jwt_required
 def update_post():
     username = get_jwt_identity()
@@ -43,15 +43,25 @@ def update_post():
     
     return jsonify({"msg": "Post has not been updated"}), 404
 
-@post_routes.route("/api/delete_post", methods=["GET"])
+@post_routes.route("/api/delete_post", methods=["GET", "POST"])
 @jwt_required
 def delete_post():
     username = get_jwt_identity()
     post_id = request.json.get("id")
 
-    management.delete_post(username, post_id)
+    print(username, post_id)
 
-@post_routes.route("/api/get_post", methods=["GET"])
+    response = management.delete_post(username, post_id)
+
+    if response == management.OK:
+        return jsonify({"msg": "Post deleted"}), 200
+    
+    if response == management.NOT_FOUND:
+        return jsonify({"msg": "Unable to delete message"}), 404
+    
+    return jsonify({"msg": "Unable to delete message"}), 401
+
+@post_routes.route("/api/get_post", methods=["GET", "POST"])
 @jwt_required
 def get_post():
     username = get_jwt_identity()

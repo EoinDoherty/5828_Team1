@@ -1,5 +1,5 @@
 from flask import Blueprint, request, jsonify
-from flask_jwt_extended import create_access_token
+from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity
 from .user import User
 from .authentication import verify_user, create_new_user
 
@@ -46,3 +46,8 @@ def signup():
         return jsonify({"token": access_token, "msg": "Logged in"}), 200
     
     return jsonify({"msg": "Username taken"}), 400
+
+@auth_routes.route("/api/get_username", methods=['GET'])
+@jwt_required
+def get_username():
+    return jsonify({"msg": get_jwt_identity()}), 200
