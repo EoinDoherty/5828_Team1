@@ -4,8 +4,10 @@ from .auth.user import User
 from app import app
 
 from .auth.routes import auth_routes
+from .posts.routes import post_routes
 
 app.register_blueprint(auth_routes)
+app.register_blueprint(post_routes)
 
 @app.route('/api/heart-beat')
 def hello():
