@@ -62,7 +62,9 @@ function Auth() {
     }
 
     if (loggedIn) {
-        return <Home token={token}/>
+        const apiHeaders = {'Content-Type': 'application/json',
+                            'Authorization': 'Bearer ' + token}
+        return <Home token={token} apiHeaders={apiHeaders}/>
     }
 
     return (
