@@ -1,9 +1,20 @@
 from datetime import datetime
 from bson import ObjectId
-from app.db import database
+from app.db import database, sterilize_doc
 
 def list_posts(username):
-    return list(database.posts.find({"creator": username}))
+    posts = list(database.posts.find({"creator": username}))
+
+    return [sterilize_doc(post) for post in posts]
+
+def get_post(username, post_id):
+
+    post = database.posts.find_one({"_id": ObjectId(post_id)})
+    
+    if post == None:
+        return None
+
+    return sterilize_doc(post)
 
 def create_post(username, title, content):
     current_time = str(datetime.now())
@@ -21,7 +32,8 @@ def create_post(username, title, content):
     return str(result.inserted_id)
 
 def update_post(username, post_id, title, content):
-    post = database.posts.find_one({"_id": ObjectId(post_id)})
+    oid = ObjectId(post_id)
+    post = database.posts.find_one({"_id": oid})
 
     if post == None or post["creator"] != username:
         return False
@@ -32,9 +44,10 @@ def update_post(username, post_id, title, content):
     post["content"] = content
     post["time_edited"] = current_time
 
-    database.posts.replace_one(post)
+    # database.posts.insert_one(post)
+    result = database.posts.replace_one({"_id": oid}, post)
 
-    return True
+    return bool(result)
 
 def delete_post(username, post_id):
     oid = ObjectId(post_id)

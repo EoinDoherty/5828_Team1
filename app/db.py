@@ -27,5 +27,13 @@ def get_user(uid):
 		pass
 		# logging.debug('Get user - {}'.format(uid))
 
+def sterilize_doc(doc):
+	result = {}
 
-
+	for key in doc:
+		if key == "_id":
+			result[key] = str(doc[key])
+		else:
+			result[key] = doc[key]
+	
+	return result

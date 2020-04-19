@@ -36,7 +36,12 @@ def update_post():
     title = request.json.get("title")
     content = request.json.get("content")
 
-    management.update_post(username, post_id, title, content)
+    updated = management.update_post(username, post_id, title, content)
+
+    if updated:
+        return jsonify({"msg": "Post has been updated"}), 200
+    
+    return jsonify({"msg": "Post has not been updated"}), 404
 
 @post_routes.route("/api/delete_post", methods=["GET"])
 @jwt_required
@@ -45,3 +50,18 @@ def delete_post():
     post_id = request.json.get("id")
 
     management.delete_post(username, post_id)
+
+@post_routes.route("/api/get_post", methods=["GET"])
+@jwt_required
+def get_post():
+    username = get_jwt_identity()
+    post_id = request.json.get("id")
+
+    post = management.get_post(username, post_id)
+    
+    if post == None:
+        return jsonify({"msg": "post not found"}), 404
+
+    reply = {"msg": "Found post", "post": post}
+
+    return jsonify(reply), 200
