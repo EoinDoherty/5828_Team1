@@ -6,6 +6,9 @@ UNAUTHORIZED = 401
 NOT_FOUND = 404
 OK = 200
 
+def datetime_to_str(dt):
+    return str(dt).split(" ")[0]
+
 def list_posts(username):
     posts = list(database.posts.find({"creator": username}))
 
@@ -20,8 +23,15 @@ def get_post(username, post_id):
 
     return sterilize_doc(post)
 
+def get_posts_by_date(username, timestamp):
+    date = timestamp.split("T")[0]
+    
+    posts = list(database.posts.find({"creator": username, "time_created": date}))
+
+    return [sterilize_doc(post) for post in posts]
+
 def create_post(username, title, content):
-    current_time = str(datetime.now())
+    current_time = datetime_to_str(datetime.now())
 
     post = {
         "creator": username,
@@ -42,7 +52,7 @@ def update_post(username, post_id, title, content):
     if post == None or post["creator"] != username:
         return False
     
-    current_time = str(datetime.now())
+    current_time = datetime_to_str(datetime.now())
 
     post["title"] = title
     post["content"] = content

@@ -16,6 +16,16 @@ def new_post():
 
     return jsonify({"msg": "created post", "id": post_id}), 200
 
+@post_routes.route("/api/list_posts_by_date", methods=["GET", "POST"])
+@jwt_required
+def get_by_date():
+    username = get_jwt_identity()
+    timestamp = request.json.get("date")
+    posts = management.get_posts_by_date(username, timestamp)
+    reply = {"msg": f"Found {len(posts)}",
+             "posts": posts}
+    
+    return jsonify(reply), 200
 
 @post_routes.route("/api/list_posts", methods=["GET", "POST"])
 @jwt_required
