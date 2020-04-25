@@ -64,6 +64,7 @@ function Editor (props) {
             <button id="save-post" onClick={savePost}>Save</button>
             <br></br>
             <button id="home-btn" onClick={goHome}>Home</button>
+            <input type="file" id="image-upload"></input>
         </div>
     )
 
