@@ -50,6 +50,7 @@ def update_post():
 
     updated = management.update_post(username, post_id, title, content, tags)
 
+
     if updated:
         return jsonify({"msg": "Post has been updated"}), 200
     
@@ -60,7 +61,6 @@ def update_post():
 def delete_post():
     username = get_jwt_identity()
     post_id = request.json.get("id")
-
     response = management.delete_post(username, post_id)
 
     if response == management.OK:

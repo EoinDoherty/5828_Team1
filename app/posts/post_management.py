@@ -6,6 +6,7 @@ UNAUTHORIZED = 401
 NOT_FOUND = 404
 OK = 200
 
+
 def datetime_to_str(dt):
     return str(dt).split(" ")[0]
 
@@ -22,6 +23,7 @@ def get_post(username, post_id):
         return None
 
     return sterilize_doc(post)
+
 
 def get_posts_by_date(username, timestamp):
     date = timestamp.split("T")[0]
@@ -55,9 +57,11 @@ def update_post(username, post_id, title, content, tags):
     
     current_time = datetime_to_str(datetime.now())
 
+
     post["title"] = title
     post["content"] = content
     post["time_edited"] = current_time
+
     post["tags"] = tags
 
     # database.posts.insert_one(post)

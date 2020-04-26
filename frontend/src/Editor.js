@@ -28,6 +28,7 @@ function Editor (props) {
                     onDelete={() => deleteTag(tag)}>{tag}</Tag>
     }
 
+
     function savePost() {
         const title = document.getElementById("post-title").value;
         const content = document.getElementById("post-editor").value;
@@ -71,7 +72,6 @@ function Editor (props) {
 
     let title = props.title ? props.title : "";
     let content = props.content ? props.content : "";
-    // let tags = props.tags ? props.tags : []; 
 
     if (exit) {
         return <Home token={props.token} apiHeaders={props.apiHeaders}/>

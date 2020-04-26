@@ -6,7 +6,6 @@ import 'react-calendar/dist/Calendar.css';
 import Search from './Search.js';
 import './Home.css';
 
-
 function Home (props) {
 
     const [editorObj, setEditorObj] = useState(undefined);
@@ -50,9 +49,9 @@ function Home (props) {
         );
     }
 
+
     const [status, setStatus] = useState(404);
     const [posts, setPosts] = useState([]);
-
 
     function fetchPosts() {
         const requestOptions = {
