@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import Home from './Home'
+import Home from './Home';
 import './Auth.css';
+
 
 function addEnterHandler(callback) {
     return (event) => {
@@ -70,10 +71,8 @@ function Auth() {
 
     return (
         <div className="Auth">
-            
-            
 
-            <h1>Team Rocket's Blog</h1>
+<   h1>Team Rocket's Blog</h1>
             <div className="Login">
                 <h3>Login</h3>
                 <p>{message}</p>
@@ -97,7 +96,6 @@ function Auth() {
                 <br></br>
                 <button onClick={handleSignUp}>Sign Up</button>
             </div>
-            
         </div>
     );
 }
