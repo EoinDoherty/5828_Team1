@@ -16,3 +16,4 @@ build/
 .vscode/
 
 app/config.json
+.DS_Store

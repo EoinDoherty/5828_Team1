@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import Home from './Home';
 import Tag from './Tag';
 import Search from './Search';
+import './Home.css';
 
 function Editor (props) {
 
@@ -92,6 +93,7 @@ function Editor (props) {
     }
 
     return (
+        <div className="Home">
         <div className="editor">
             <h3>Title:</h3>
             <input type="text" id="post-title" name="title" defaultValue={title}></input>
@@ -115,6 +117,7 @@ function Editor (props) {
             <br></br>
             <button id="home-btn" onClick={goHome}>Home</button>
             <input type="file" id="image-upload"></input>
+        </div>
         </div>
     )
 
