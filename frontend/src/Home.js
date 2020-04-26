@@ -3,6 +3,8 @@ import Card from './Card.js'
 import Editor from './Editor';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
+import './Home.css';
+
 
 function Home (props) {
 
@@ -93,22 +95,26 @@ function Home (props) {
 
     function postListing(post) {
         return (
+
             <div className="recentPost">
+
+                    <Card className='CardEditor' style={{ marginBottom: '20px', padding: '20px', boxSizing: 'border-box' }}>   
                     <h3>{post.title}</h3>
                 
                     <button onClick={() => editExisting(post)}>Edit</button>
                     <button onClick={() => deletePost(post._id)}>Delete</button>
                 <br></br>
+                </Card>
             </div>
         );
     }
 
     if (status === 200) {
         if (editorObj !== undefined) {
-            return <div>{editorObj}</div>
+            return <div className = 'Home'>{editorObj}</div>
         }
         return (
-            <div>
+            <div className = 'Home'>
         <Card style={{ marginBottom: '20px', padding: '20px', boxSizing: 'border-box' }}>
                 <div className="cardHeader">
                     <h3>Hello {username}</h3>
@@ -124,7 +130,8 @@ function Home (props) {
             </Card>
             <div>
                 <h3>Find a post by date</h3>
-                <Calendar id="calendar" onChange={onChange} value={date} onClickDay={onClickDay}/>
+                
+                <Calendar  id="calendar" onChange={onChange} value={date} onClickDay={onClickDay}/> 
                 {date && <div><h3>Posts for {date.toLocaleDateString('en-US')}</h3></div>}
                 {datePosts.length > 0 && datePosts.map(postListing)}
             </div>
@@ -132,11 +139,14 @@ function Home (props) {
     }
 
     return (
-        <div>
+        <div className = 'Home'>
             <h3>Error</h3>
             <p>{status}</p>
         </div>
     );
+
+  
+
 }
 
 export default Home;

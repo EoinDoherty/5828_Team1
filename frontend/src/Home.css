@@ -1,0 +1,58 @@
+
+
+.Home{
+    background: url("https://btsdiary.files.wordpress.com/2015/01/blog-background.png");
+    background-size: cover;
+    width: 100%;
+  }
+
+.CardEditor{
+  display: flex;
+  flex-direction: column;
+  margin: 1rem auto;
+  box-shadow: 0 3px 7px -1px rgba(#000, .1);
+  margin-bottom: 1.6%;
+  background: #ffffff;
+  line-height: 1.4;
+  font-family: sans-serif;
+  border-radius: 5px;
+  overflow: hidden;
+  z-index: 0;
+  width: 30%;
+  height: 40%;
+  font-size: 30px;
+}
+
+.Home h3 {
+    font-family: cursive;
+    color :#4682B4;
+    font-size: 50px;
+    
+    
+}
+
+.Home span {
+
+    font-family: cursive;
+    color : #4682B4;
+    font-size: 30px;
+
+}
+
+.recentPosts h3 {
+    
+    color: #4682B4;
+    
+    
+}
+
+ .react-calendar{
+    margin-left: 39%;
+}
+
+.react-calendar__month-view__weekdays{
+    color: brown;
+}
+
+
+
