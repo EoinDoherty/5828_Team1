@@ -30,7 +30,7 @@ def get_posts_by_date(username, timestamp):
 
     return [sterilize_doc(post) for post in posts]
 
-def create_post(username, title, content):
+def create_post(username, title, content, tags):
     current_time = datetime_to_str(datetime.now())
 
     post = {
@@ -39,13 +39,14 @@ def create_post(username, title, content):
         "shared_with": [],
         "content": content,
         "time_created": current_time,
-        "time_edited": current_time 
+        "time_edited": current_time,
+        "tags": tags
     }
 
     result = database.posts.insert_one(post)
     return str(result.inserted_id)
 
-def update_post(username, post_id, title, content):
+def update_post(username, post_id, title, content, tags):
     oid = ObjectId(post_id)
     post = database.posts.find_one({"_id": oid})
 
@@ -57,6 +58,7 @@ def update_post(username, post_id, title, content):
     post["title"] = title
     post["content"] = content
     post["time_edited"] = current_time
+    post["tags"] = tags
 
     # database.posts.insert_one(post)
     result = database.posts.replace_one({"_id": oid}, post)
@@ -73,3 +75,35 @@ def delete_post(username, post_id):
             return OK
         return NOT_FOUND
     return UNAUTHORIZED
+
+def search_posts(username, text, tags):
+    text_results = []
+    tag_results = []
+
+    if len(text) > 0:
+        text_results = list(database.posts.find({"creator": username, "$text": {"$search": text}}))
+
+    if len(tags) > 0:
+        or_list = []
+
+        for tag in tags:
+            or_list.append({"tags": tag})
+        
+        tag_results = list(database.posts.find({"creator": username, "$or": or_list}))
+    
+    result_ids = set()
+    joined_results = []
+
+    for res in text_results:
+        oid = str(res["_id"])
+        if oid not in result_ids:
+            result_ids.add(oid)
+            joined_results.append(sterilize_doc(res))
+    
+    for res in tag_results:
+        oid = str(res["_id"])
+        if oid not in result_ids:
+            result_ids.add(oid)
+            joined_results.append(sterilize_doc(res))
+    
+    return joined_results

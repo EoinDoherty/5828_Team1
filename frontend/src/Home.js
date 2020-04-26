@@ -3,12 +3,15 @@ import Card from './Card.js'
 import Editor from './Editor';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
+import Search from './Search.js';
 
 function Home (props) {
 
     const [editorObj, setEditorObj] = useState(undefined);
     const [username, setUsername] = useState("");
     const [datePosts, setDatePosts] = useState([]);
+    const [searchTag, setSearchTag] = useState("");
+    const [searchText, setSearchText] = useState("");
 
     useEffect(() => {
         let options = {method: 'GET', headers: props.apiHeaders};
@@ -30,7 +33,8 @@ function Home (props) {
                              apiHeaders={props["apiHeaders"]} 
                              title={post.title} 
                              content={post.content} 
-                             postId={post._id}>
+                             postId={post._id}
+                             tags={post.tags}>
                     </Editor>)
     }
 
@@ -91,19 +95,38 @@ function Home (props) {
             })
     }
 
-    function postListing(post) {
+    function postListing(post, i) {
         return (
-            <div className="recentPost">
+            <div className="recentPost" key={"listing-" + i}>
                     <h3>{post.title}</h3>
                 
                     <button onClick={() => editExisting(post)}>Edit</button>
                     <button onClick={() => deletePost(post._id)}>Delete</button>
+                    <br></br>
+                    <span>Tags: </span>
+                    {post.tags.map((tag, i) => {
+                        return <button key={"tag=" + i} onClick={() => setSearchTag(tag)}>{tag}</button>
+                    })}
                 <br></br>
             </div>
         );
     }
+    
+    function submitSearch() {
+        const search_text = document.getElementById("searchbar").value;
+        
+        if (search_text.length > 0) {
+            setSearchText(search_text);
+        }
+    }
 
     if (status === 200) {
+        if (searchTag.length > 0 || searchText.length > 0) {
+            return <Search token={props.token} 
+                           apiHeaders={props.apiHeaders} 
+                           tags={[searchTag]} 
+                           text={searchText}/>
+        }
         if (editorObj !== undefined) {
             return <div>{editorObj}</div>
         }
@@ -112,6 +135,9 @@ function Home (props) {
         <Card style={{ marginBottom: '20px', padding: '20px', boxSizing: 'border-box' }}>
                 <div className="cardHeader">
                     <h3>Hello {username}</h3>
+                    <br></br>
+                    <input id="searchbar" type="text"></input>
+                    <button id="searchbar-btn" onClick={submitSearch}>Search</button>
                     <br></br>
                     <span>Recent Posts</span>
                 </div>

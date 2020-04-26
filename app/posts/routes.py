@@ -11,8 +11,9 @@ def new_post():
     username = get_jwt_identity()
     title = request.json.get("title")
     content = request.json.get("content")
+    tags = request.json.get("tags")
 
-    post_id = management.create_post(username, title, content)
+    post_id = management.create_post(username, title, content, tags)
 
     return jsonify({"msg": "created post", "id": post_id}), 200
 
@@ -45,8 +46,9 @@ def update_post():
     post_id = request.json.get("id")
     title = request.json.get("title")
     content = request.json.get("content")
+    tags = request.json.get("tags")
 
-    updated = management.update_post(username, post_id, title, content)
+    updated = management.update_post(username, post_id, title, content, tags)
 
     if updated:
         return jsonify({"msg": "Post has been updated"}), 200
@@ -84,4 +86,18 @@ def get_post():
 
     reply = {"msg": "Found post", "post": post}
 
+    return jsonify(reply), 200
+
+@post_routes.route("/api/search_posts", methods=["GET", "POST"])
+@jwt_required
+def search_post():
+    username = get_jwt_identity()
+    print(request.json)
+    text = request.json.get("text")
+    tags = request.json.get("tags")
+
+    results = management.search_posts(username, text, tags)
+
+    reply = {"msg": f"Found {len(results)} results", "results": results}
+    
     return jsonify(reply), 200

@@ -60,7 +60,7 @@ def test_create_post():
             insert_ack = MagicMock()
             insert_ack.inserted_id = oid
             mock.posts.insert_one.return_value = insert_ack
-            result = create_post("user", "title", "content")
+            result = create_post("user", "title", "content", [])
             assert result == str(oid)
 
 def test_update_post():
@@ -69,11 +69,11 @@ def test_update_post():
             oid = ObjectId()
             mock.posts.find_one.return_value = {"_id": oid, "creator": "user"}
             mock.posts.replace_one.return_value = {"_id": oid}
-            result = update_post("user", str(oid), "title", "content")
+            result = update_post("user", str(oid), "title", "content", [])
             assert result
         with patch(context + ".database") as mock:
             mock.posts.find_one.return_value = None
-            result = update_post("user", str(ObjectId()), "title", "content")
+            result = update_post("user", str(ObjectId()), "title", "content", [])
             assert not result
 
 def test_delete_post():
