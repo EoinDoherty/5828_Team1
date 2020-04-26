@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Home from './Home'
+import './Auth.css';
 
 function addEnterHandler(callback) {
     return (event) => {
@@ -69,6 +70,10 @@ function Auth() {
 
     return (
         <div className="Auth">
+            
+            
+
+            <h1>Team Rocket's Blog</h1>
             <div className="Login">
                 <h3>Login</h3>
                 <p>{message}</p>
@@ -77,9 +82,10 @@ function Auth() {
 
                 Password:
                 <input id="passwordLogin" type="password" onKeyDown={addEnterHandler(handleLogin)}/><br></br>
+                <br></br>
                 <button onClick={handleLogin}>Login</button>
             </div>
-            
+            <br></br>
             <div className="SignUp">
             <h3>Sign Up</h3>
                 <p>{message}</p>
@@ -88,8 +94,10 @@ function Auth() {
 
                 Password:
                 <input id="passwordSU" type="password" onKeyDown={addEnterHandler(handleSignUp)}/><br></br>
+                <br></br>
                 <button onClick={handleSignUp}>Sign Up</button>
             </div>
+            
         </div>
     );
 }
