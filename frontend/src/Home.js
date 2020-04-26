@@ -30,12 +30,14 @@ function Home (props) {
     }
 
     function editExisting(post) {
+        const tags = post.tags ? post.tags : [];
+
         setEditorObj(<Editor token={props["token"]} 
                              apiHeaders={props["apiHeaders"]} 
                              title={post.title} 
                              content={post.content} 
                              postId={post._id}
-                             tags={post.tags}>
+                             tags={tags}>
                     </Editor>)
     }
 
@@ -50,7 +52,7 @@ function Home (props) {
     }
 
 
-    const [status, setStatus] = useState(404);
+    // const [status, setStatus] = useState(404);
     const [posts, setPosts] = useState([]);
 
     function fetchPosts() {
@@ -60,7 +62,7 @@ function Home (props) {
         }
         fetch('api/list_posts', requestOptions)
             .then(response => {
-                setStatus(response.status);
+                // setStatus(response.status);
                 response.json()
                 .then(data =>
                     setPosts(data.posts)
@@ -97,8 +99,9 @@ function Home (props) {
     }
 
     function postListing(post, i) {
-        return (
+        const tags = post.tags? post.tags : [];
 
+        return (
             <div className="recentPost" key={"post-listing-" + i}>
 
                     <Card className='CardEditor' style={{ marginBottom: '20px', padding: '20px', boxSizing: 'border-box' }}>   
@@ -108,7 +111,7 @@ function Home (props) {
                     <button onClick={() => deletePost(post._id)}>Delete</button>
                     <br></br>
                     <span>Tags: </span>
-                    {post.tags.map((tag, i) => {
+                    {tags.map((tag, i) => {
                         return <button key={"tag=" + i} onClick={() => setSearchTag(tag)}>{tag}</button>
                     })}
                 <br></br>
