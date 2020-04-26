@@ -61,8 +61,6 @@ def delete_post():
     username = get_jwt_identity()
     post_id = request.json.get("id")
 
-    print(username, post_id)
-
     response = management.delete_post(username, post_id)
 
     if response == management.OK:
@@ -92,7 +90,6 @@ def get_post():
 @jwt_required
 def search_post():
     username = get_jwt_identity()
-    print(request.json)
     text = request.json.get("text")
     tags = request.json.get("tags")
 
