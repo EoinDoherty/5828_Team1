@@ -48,6 +48,12 @@ function Search(props) {
             });
     }
 
+    function imageContent(post) {
+        if(post.file){
+            return <img src={post.file.substring(2, post.file.length-1)} alt="No file uploaded"/>
+        }
+    }
+
     useEffect(fetchPosts, [props]);
 
     if (home) {
@@ -68,6 +74,7 @@ function Search(props) {
                 return (
                     <div className="recentPost" key={"post" + i}>
                         <h3>{result.title}</h3>
+                        {imageContent(result)}
                         <button onClick={() => editPost(result)}>Edit</button>
                         <button onClick={() => deletePost(result._id)}>Delete</button>
                     </div>
