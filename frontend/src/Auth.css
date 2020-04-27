@@ -1,0 +1,88 @@
+
+@import url('https://fonts.googleapis.com/css?family=Fira+Sans:400,500,600,700,800');
+
+.Auth {
+  background: url("https://btsdiary.files.wordpress.com/2015/01/blog-background.png");
+  background-size: cover;
+  width: 100%;
+}
+
+.Login {
+    background-color:#4682B4 ;
+    width: 40%;
+    height: 40%;
+    box-sizing: border-box;
+    padding: 10px 20px 30px 40px;
+    border-radius: 15px;
+    margin: 0 auto;
+    
+  }
+
+  .SignUp {
+    background-color:#4682B4 ;
+    width: 40%;
+    height: 40%;
+    box-sizing: border-box;
+    padding: 10px 20px 30px 40px;
+    border-radius: 15px;
+    margin: 0 auto;
+    
+    
+  }
+  .Auth h1{
+    color:#4682B4;
+    
+
+  }
+
+  .Login button{
+    box-shadow:inset 0px 1px 0px 0px #dcecfb;
+	background:linear-gradient(to bottom, #bddbfa 5%, #80b5ea 100%);
+	background-color:#bddbfa;
+	border-radius:6px;
+	border:1px solid #84bbf3;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:15px;
+	font-weight:bold;
+	padding:6px 24px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #528ecc;
+
+
+  }
+  .Login button:hover {
+	background:linear-gradient(to bottom, #80b5ea 5%, #bddbfa 100%);
+	background-color:#80b5ea;
+}
+
+.SignUp button{
+    box-shadow:inset 0px 1px 0px 0px #dcecfb;
+	background:linear-gradient(to bottom, #bddbfa 5%, #80b5ea 100%);
+	background-color:#bddbfa;
+	border-radius:6px;
+	border:1px solid #84bbf3;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:15px;
+	font-weight:bold;
+	padding:6px 24px;
+	text-decoration:none;
+    text-shadow:0px 1px 0px #528ecc;
+}
+
+.SignUp button:hover {
+	background:linear-gradient(to bottom, #80b5ea 5%, #bddbfa 100%);
+	background-color:#80b5ea;
+}
+
+Body {
+    font-family: cursive;
+}
+
+
+

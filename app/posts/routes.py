@@ -11,11 +11,23 @@ def new_post():
     username = get_jwt_identity()
     title = request.json.get("title")
     content = request.json.get("content")
+    tags = request.json.get("tags")
     filename = request.json.get("filename")
 
-    post_id = management.create_post(username, title, content, filename)
+    post_id = management.create_post(username, title, content, tags, filename)
+
     return jsonify({"msg": "created post", "id": post_id}), 200
 
+@post_routes.route("/api/list_posts_by_date", methods=["GET", "POST"])
+@jwt_required
+def get_by_date():
+    username = get_jwt_identity()
+    timestamp = request.json.get("date")
+    posts = management.get_posts_by_date(username, timestamp)
+    reply = {"msg": f"Found {len(posts)}",
+             "posts": posts}
+    
+    return jsonify(reply), 200
 
 @post_routes.route("/api/list_posts", methods=["GET", "POST"])
 @jwt_required
@@ -35,10 +47,9 @@ def update_post():
     post_id = request.json.get("id")
     title = request.json.get("title")
     content = request.json.get("content")
+    tags = request.json.get("tags")
     filename = request.json.get("filename")
-
-
-    updated = management.update_post(username, post_id, title, content, filename)
+    updated = management.update_post(username, post_id, title, content, tags, filename)
 
     if updated:
         return jsonify({"msg": "Post has been updated", "id": post_id}), 200
@@ -64,9 +75,6 @@ def upload_image(post_id):
 def delete_post():
     username = get_jwt_identity()
     post_id = request.json.get("id")
-
-    print(username, post_id)
-
     response = management.delete_post(username, post_id)
 
     if response == management.OK:
@@ -90,4 +98,17 @@ def get_post():
 
     reply = {"msg": "Found post", "post": post}
 
+    return jsonify(reply), 200
+
+@post_routes.route("/api/search_posts", methods=["GET", "POST"])
+@jwt_required
+def search_post():
+    username = get_jwt_identity()
+    text = request.json.get("text")
+    tags = request.json.get("tags")
+
+    results = management.search_posts(username, text, tags)
+
+    reply = {"msg": f"Found {len(results)} results", "results": results}
+    
     return jsonify(reply), 200
