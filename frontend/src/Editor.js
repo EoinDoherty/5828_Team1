@@ -36,6 +36,11 @@ function Editor (props) {
         },
     [props.fileName, props.fileContent]);
 
+    let title = props.title ? props.title : "";
+    let content = props.content ? props.content : "";
+    let filename = props.fileName ? props.fileName : ""
+    let fileContent = props.fileContent ? props.fileContent : ""
+
     function loadPreview(name, fileContent)
     {
         var preview = document.getElementById('preview');
@@ -68,8 +73,8 @@ function Editor (props) {
         const title = document.getElementById("post-title").value;
         const content = document.getElementById("post-editor").value;
         const uploadFile = document.getElementById("image-upload").files[0];
-        var fileContent = uploadFile ? uploadFile : fileContent;
-        var filename = uploadFile.name ? uploadFile.name : filename;
+        fileContent = uploadFile ? uploadFile : fileContent;
+        filename = uploadFile.name ? uploadFile.name : filename;
         
         if (postId) {
             // Overwrite an existing post
@@ -117,11 +122,6 @@ function Editor (props) {
     function goHome() {
         setExit(true);
     }
-
-    let title = props.title ? props.title : "";
-    let content = props.content ? props.content : "";
-    let filename = props.fileName ? props.fileName : ""
-    let fileContent = props.fileContent ? props.fileContent : ""
 
 
     if (exit) {
