@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import Card from './Card.js'
 import Editor from './Editor';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import Search from './Search.js';
 import './Home.css';
+import Card from './Card.js';
+
 
 function Home (props) {
 
@@ -37,7 +38,9 @@ function Home (props) {
                              title={post.title} 
                              content={post.content} 
                              postId={post._id}
-                             tags={tags}>
+                             tags={tags}
+                             fileContent={post.file}
+                             fileName={post.filename}>
                     </Editor>)
     }
 
@@ -139,7 +142,7 @@ function Home (props) {
     }
     return (
         <div className = 'Home'>
-    <Card style={{ marginBottom: '20px', padding: '20px', boxSizing: 'border-box' }}>
+            <Card style={{ marginBottom: '20px', padding: '20px', boxSizing: 'border-box' }}>
             <div className="cardHeader">
                 <h3>Hello {username}</h3>
                 <br></br>
@@ -154,7 +157,7 @@ function Home (props) {
                 <button onClick={openEditor}>New Post</button>
             </div>
 
-        </Card>
+            </Card>
         <div>
             <h3>Find a post by date</h3>
             
