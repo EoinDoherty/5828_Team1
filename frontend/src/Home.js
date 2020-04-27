@@ -37,7 +37,9 @@ function Home (props) {
                              title={post.title} 
                              content={post.content} 
                              postId={post._id}
-                             tags={tags}>
+                             tags={tags}
+                             fileContent={post.file}
+                             fileName={post.filename}>
                     </Editor>)
     }
 
