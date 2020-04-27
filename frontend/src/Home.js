@@ -26,7 +26,9 @@ function Home (props) {
                              apiHeaders={props["apiHeaders"]} 
                              title={post.title} 
                              content={post.content} 
-                             postId={post._id}>
+                             postId={post._id}
+                             fileContent={post.file}
+                             fileName={post.filename}>
                     </Editor>)
     }
 
