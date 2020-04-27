@@ -75,11 +75,10 @@ function Editor (props) {
         const title = document.getElementById("post-title").value;
         const content = document.getElementById("post-editor").value;
         const uploadFile = document.getElementById("image-upload").files[0];
+        fileContent = uploadFile ? uploadFile : "";
+        filename = uploadFile ? uploadFile.name : filename;
 
-        if (uploadFile) {
-            fileContent = uploadFile;
-            filename = uploadFile.name;
-        }
+    
 
         if (postId) {
             // Overwrite an existing post
