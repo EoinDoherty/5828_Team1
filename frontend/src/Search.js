@@ -19,7 +19,9 @@ function Search(props) {
                                 title={title}
                                 postId={id}
                                 content={content}
-                                tags={tags}/>);
+                                tags={tags}
+                                fileContent={post.file}
+                                fileName={post.filename}/>);
     }
 
     function deletePost(postId) {
@@ -38,10 +40,11 @@ function Search(props) {
             headers: props.apiHeaders,
             body: JSON.stringify({"tags": props.tags, "text": props.text})
             }).then(response => {
-                response.json()
-                .then(data => {
-                    setResults(data.results);
-                })
+                if (response.status === 200){
+                    response.json().then(data => {
+                        setResults(data.results ? data.results : []);
+                    })
+                }
             });
     }
 

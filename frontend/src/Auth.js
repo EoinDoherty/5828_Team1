@@ -31,13 +31,26 @@ function Auth() {
         };
 
         fetch('api/login', requestOptions)
-            .then(response => response.json())
-            .then(data => {if (data["token"]) {
-                setToken(data["token"]);
-                setLoggedIn(true);
-            }
-            setMessage(data["msg"]);
-        });
+            .then(response => {
+                if (response.status === 200) {
+                    response.json().then(data => {
+                        if (data.token) {
+                            setToken(data.token);
+                            setLoggedIn(true);
+                        }
+                        setMessage(data.msg);
+                    })
+                }
+            });
+
+        // fetch('api/login', requestOptions)
+        //     .then(response => response.json())
+        //     .then(data => {if (data["token"]) {
+        //         setToken(data["token"]);
+        //         setLoggedIn(true);
+        //     }
+        //     setMessage(data["msg"]);
+        // });
     }
 
     let handleSignUp = (event) => {
@@ -54,13 +67,17 @@ function Auth() {
         };
 
         fetch('api/signup', requestOptions)
-            .then(response => response.json())
-            .then(data => {if (data["token"]) {
-                setToken(data["token"]);
-                setLoggedIn(true);
-            }
-            setMessage(data["msg"]);
-        });
+            .then(response => {
+                if (response.status === 200) {
+                    response.json().then(data => {
+                        if (data.token) {
+                            setToken(data.token);
+                            setLoggedIn(true);
+                        }
+                        setMessage(data.msg);
+                    })
+                }
+            });
     }
 
     if (loggedIn) {

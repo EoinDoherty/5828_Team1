@@ -18,9 +18,11 @@ function Home (props) {
         let options = {method: 'GET', headers: props.apiHeaders};
         fetch("/api/get_username", options)
             .then(response => {
-                response.json().then(data => 
-                    setUsername(data.msg)
-                );
+                if (response.status === 200) {
+                    response.json().then(data => 
+                        setUsername(data.msg)
+                    );
+                }
             })
         },
     [props.apiHeaders]);
@@ -64,11 +66,9 @@ function Home (props) {
         }
         fetch('api/list_posts', requestOptions)
             .then(response => {
-                // setStatus(response.status);
-                response.json()
-                .then(data =>
-                    setPosts(data.posts)
-                )
+                if (response.status === 200){
+                    response.json().then(data => setPosts(data.posts))
+                }
             })
     }
 
@@ -95,8 +95,9 @@ function Home (props) {
 
         fetch('api/list_posts_by_date', requestOptions)
             .then(response => {
-                console.log(response);
-                response.json().then(data => setDatePosts(data.posts))
+                if (response.status === 200){
+                    response.json().then(data => setDatePosts(data.posts));
+                }
             })
     }
 
