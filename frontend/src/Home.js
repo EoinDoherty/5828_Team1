@@ -101,6 +101,15 @@ function Home (props) {
             })
     }
 
+
+    function imageContent(post) {
+        const content = post.file ? post.file.substring(2, post.file.length-1): "";
+        return (
+            <img src={content}/>
+        );
+    }
+    
+
     function postListing(post, i) {
         const tags = post.tags? post.tags : [];
 
@@ -113,6 +122,7 @@ function Home (props) {
                     <button onClick={() => editExisting(post)}>Edit</button>
                     <button onClick={() => deletePost(post._id)}>Delete</button>
                     <br></br>
+                    {imageContent(post)}
                     <span>Tags: </span>
                     {tags.map((tag, i) => {
                         return <button key={"tag=" + i} onClick={() => setSearchTag(tag)}>{tag}</button>
