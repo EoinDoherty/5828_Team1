@@ -103,10 +103,9 @@ function Home (props) {
 
 
     function imageContent(post) {
-        const content = post.file ? post.file.substring(2, post.file.length-1): "";
-        return (
-            <img src={content}/>
-        );
+        if(post.file){
+            return <img src={post.file.substring(2, post.file.length-1)} alt="No file uploaded"/>
+        }
     }
     
 
