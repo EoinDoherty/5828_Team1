@@ -11,9 +11,9 @@ def new_post():
     username = get_jwt_identity()
     title = request.json.get("title")
     content = request.json.get("content")
+    filename = request.json.get("filename")
 
-    post_id = management.create_post(username, title, content)
-
+    post_id = management.create_post(username, title, content, filename)
     return jsonify({"msg": "created post", "id": post_id}), 200
 
 
@@ -35,13 +35,29 @@ def update_post():
     post_id = request.json.get("id")
     title = request.json.get("title")
     content = request.json.get("content")
+    filename = request.json.get("filename")
 
-    updated = management.update_post(username, post_id, title, content)
+
+    updated = management.update_post(username, post_id, title, content, filename)
 
     if updated:
-        return jsonify({"msg": "Post has been updated"}), 200
+        return jsonify({"msg": "Post has been updated", "id": post_id}), 200
     
-    return jsonify({"msg": "Post has not been updated"}), 404
+    return jsonify({"msg": "Post has not been updated",  "id": post_id}), 404
+
+
+@post_routes.route("/api/upload_image/<post_id>", methods=["GET", "POST"])
+@jwt_required
+def upload_image(post_id):
+    username = get_jwt_identity()
+
+    image = request.data
+    updated = management.upload_image(username, post_id, str(image))
+
+    if updated:
+        return jsonify({"msg": "Image has been updated",  "id": post_id}), 200
+
+    return jsonify({"msg": "Image has not been updated",  "id": post_id}), 404
 
 @post_routes.route("/api/delete_post", methods=["GET", "POST"])
 @jwt_required
