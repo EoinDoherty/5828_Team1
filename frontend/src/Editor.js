@@ -38,8 +38,8 @@ function Editor (props) {
 
     let title = props.title ? props.title : "";
     let content = props.content ? props.content : "";
-    let filename = props.fileName ? props.fileName : ""
-    let fileContent = props.fileContent ? props.fileContent : ""
+    let filename = props.fileName;
+    let fileContent = props.fileContent;
 
     function loadPreview(name, fileContent)
     {
@@ -55,17 +55,19 @@ function Editor (props) {
 
     function processImage(fileContent, data)
     {
-        var reader = new FileReader();
-        reader.readAsDataURL(fileContent);
-        reader.onload = function(){
-            var result = reader.result
-            fetch("/api/upload_image/"+data.id, {
-                method: 'POST',
-                headers: apiHeaders,
-                body: result
-            })
+        if (fileContent) {
+            var reader = new FileReader();
+            reader.readAsDataURL(fileContent);
+            reader.onload = function(){
+                var result = reader.result
+                fetch("/api/upload_image/"+data.id, {
+                    method: 'POST',
+                    headers: apiHeaders,
+                    body: result
+                })
 
-            loadPreview(fileContent.name, result);
+                loadPreview(fileContent.name, result);
+            }
         }
     }
 
@@ -73,9 +75,12 @@ function Editor (props) {
         const title = document.getElementById("post-title").value;
         const content = document.getElementById("post-editor").value;
         const uploadFile = document.getElementById("image-upload").files[0];
-        fileContent = uploadFile ? uploadFile : fileContent;
-        filename = uploadFile.name ? uploadFile.name : filename;
-        
+
+        if (uploadFile) {
+            fileContent = uploadFile;
+            filename = uploadFile.name;
+        }
+
         if (postId) {
             // Overwrite an existing post
             fetch("/api/update_post", {
