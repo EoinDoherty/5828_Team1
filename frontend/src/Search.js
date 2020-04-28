@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import Home from './Home';
 import Editor from './Editor';
+import './Search.css';
+import Card from './Card'
 
 function Search(props) {
 
@@ -68,19 +70,25 @@ function Search(props) {
     const query_display = props.text.length > 0 ? props.text : joined_tags;
 
     return (
-        <div>
+        <div className = "Home">
             <h3>Search results for: {query_display}</h3>
+            
             {results.map((result, i) => {
                 return (
-                    <div className="recentPost" key={"post" + i}>
+                    <Card className='CardEditor' style={{ marginBottom: '10px', padding: '10px' }}> 
+                    <div className="Post" key={"post" + i}>
                         <h3>{result.title}</h3>
+                        <br/>
                         {imageContent(result)}
+                        <br/>
                         <button onClick={() => editPost(result)}>Edit</button>
                         <button onClick={() => deletePost(result._id)}>Delete</button>
                     </div>
+                    </Card>
                 );
             })}
-            <button onClick={() => setHome(true)}>Home</button>
+            <button className='btn' onClick={() => setHome(true)}>Home</button>
+            
         </div>
     );
 }

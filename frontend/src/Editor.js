@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Home from './Home';
 import Tag from './Tag';
 import Search from './Search';
-import './Home.css';
+import './Editor.css';
 
 function Editor (props) {
 
@@ -149,7 +149,7 @@ function Editor (props) {
 
     return (
         <div className="Home">
-        <div className="editor">
+        <div className="Editor">
             <h3>Title:</h3>
             <input type="text" id="post-title" name="title" defaultValue={title}></input>
             <br></br>
@@ -167,10 +167,11 @@ function Editor (props) {
             <input type="text" id="new-tag" name="tag"></input>
             <button id="tag-btn" onClick={addTag}>Add tag</button>
             <br></br>
-
-            <button id="save-post" onClick={savePost}>Save</button>
             <br></br>
-            <input type="file" id="image-upload"></input>
+            <input  type="file" id="image-upload"/>
+            <br></br>
+            <br></br>
+            <button id="save-post" onClick={savePost}>Save</button>
             <button id="home-btn" onClick={goHome}>Home</button>
             <div id="preview"/>
         </div>

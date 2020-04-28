@@ -4,24 +4,42 @@
     width: 100%;
   }
 
+  .Title {
+
+   
+    background: url("https://btsdiary.files.wordpress.com/2015/01/blog-background.png");
+    background-size: cover;
+
+  }
+
+  .Title h5 {
+    text-align: center;
+    color : #4682B4;
+
+  }
+
 .CardEditor{
   display: flex;
   flex-direction: column;
-  margin: 1rem auto;
-  box-shadow: 0 3px 7px -1px rgba(#000, .1);
-  margin-bottom: 1.6%;
-  background: #ffffff;
-  line-height: 1.4;
+  /*margin: 1rem auto;*/
+  /*box-shadow: 0 3px 7px -1px rgba(#000, .1);*/
+  /*margin-bottom: 1.6%;*/
+  background: #4682B4;
+  /*line-height: 1.4;*/
   font-family: sans-serif;
-  border-radius: 5px;
+  /* border-radius: 5px; */
   overflow: hidden;
   z-index: 0;
   width: 30%;
-  height: 40%;
+  height: 20%;
   font-size: 30px;
+  box-sizing: border-box;
+  padding: 10px 20px 30px 40px;
+  border-radius: 15px;
+  margin: 0 auto;
 }
 
-.Home h3 {
+.CardEditor h2 {
     font-family: cursive;
     color :#4682B4;
     font-size: 50px;
@@ -37,9 +55,15 @@
 
 }
 
+.CardEditor h5{
+
+    font-family: cursive;
+}
+
 .recentPosts h3 {
     
     color: #4682B4;
+    border-style: none;
     
     
 }
@@ -51,6 +75,164 @@
 .react-calendar__month-view__weekdays{
     color: brown;
 }
+.FindPost input[type="file"]::-webkit-file-upload-button, button{
+    color : black;
+}
+
+.cardHeader h3 {
+
+    color: #4682B4;
+}
+
+
+.cardHeader button {
+
+    box-shadow:inset 0px 1px 0px 0px #dcecfb;
+	background:linear-gradient(to bottom, #bddbfa 5%, #80b5ea 100%);
+	background-color:#bddbfa;
+	border-radius:6px;
+	border:1px solid #84bbf3;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:15px;
+	font-weight:bold;
+	padding:6px 24px;
+	text-decoration:none;
+    text-shadow:0px 1px 0px #528ecc;
+
+}
+
+.cardHeader input[type = text] {
+
+        border: 2px solid #528ecc;
+        border-radius: 4px;
+      
+}
+
+
+.CardEditor button {
+
+    box-shadow:inset 0px 1px 0px 0px #dcecfb;
+	background:linear-gradient(to bottom, #bddbfa 5%, #80b5ea 100%);
+	background-color:#bddbfa;
+	border-radius:6px;
+	border:1px solid #84bbf3;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:15px;
+	font-weight:bold;
+	padding:6px 24px;
+	text-decoration:none;
+    text-shadow:0px 1px 0px #528ecc;
+    height: auto;
+    width: auto;
+    margin: 0 auto;
+
+}
+
+.recentPosts.recentPost {
+
+    border-style : none;
+}
+
+.recentPosts button {
+
+    box-shadow:inset 0px 1px 0px 0px #dcecfb;
+	background:linear-gradient(to bottom, #bddbfa 5%, #80b5ea 100%);
+	background-color:#bddbfa;
+	border-radius:6px;
+	border:1px solid #84bbf3;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:15px;
+	font-weight:bold;
+	padding:6px 24px;
+	text-decoration:none;
+    text-shadow:0px 1px 0px #528ecc;
+    height: auto;
+    width: auto;
+    margin: 0 auto;
+
+}
+
+.recentPost h3 {
+    /* color: #6c6c6c; */
+    letter-spacing: 1px;
+    font-size: 5em;
+    font-weight: 700;
+    margin: 0;
+    color : white;
+    text-align: left;
+}
+
+.CardEditor img{
+    width : 400px;
+    height : 80px
+}
+
+
+.btn-group button  {
+
+    box-shadow:inset 0px 1px 0px 0px #dcecfb;
+	background:linear-gradient(to bottom, #bddbfa 5%, #80b5ea 100%);
+	background-color:#bddbfa;
+	border-radius:6px;
+	border:1px solid #84bbf3;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:15px;
+	font-weight:bold;
+	padding:6px 24px;
+	text-decoration:none;
+    text-shadow:0px 1px 0px #528ecc;
+    height: auto;
+    width: auto;
+    margin: 5px ;
+    float : left;
+    justify-content: center;
+    position: relative;
+    left : 115px;
+    top : -50px
+
+    
+}
 
 
 
+.Tag h5 {
+
+    position: relative;
+    left : -60px;
+    top : -1px
+}
+
+.Tag button {
+
+    position: relative;
+    top : -85px;
+    left : 20px;
+
+}
+
+.FindPost h3 {
+
+    color : #528ecc;
+    font-weight: 700;
+
+}
+
+.react-calendar__month-view__weekdays {
+
+    color :  #528ecc;
+    font-weight: bold;
+    font-family: cursive;
+    font-size: 0.75em;
+}
