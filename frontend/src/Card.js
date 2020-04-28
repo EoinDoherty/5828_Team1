@@ -3,11 +3,13 @@ import './Card.css';
 
 const Card = (props) => {
     return(
-      <div className="card" style={{ width: props.width ? props.width: '100%' }} {...props}>
+      <div className="card"  {...props}>
           {props.children}
       </div>
      )
   
 }
+
+// style={{ width: props.width ? props.width: '100%' }}
 
 export default Card
