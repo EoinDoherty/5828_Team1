@@ -77,7 +77,7 @@ def upload_image(username, post_id, file):
 
     if post == None or post["creator"] != username:
         return False
-    current_time = str(datetime.now())
+    current_time = datetime_to_str(datetime.now())
     post["file"] = file
     post["time_edited"] = current_time
 
