@@ -1,6 +1,7 @@
 from datetime import datetime
 from bson import ObjectId
 from app.db import database, sterilize_doc
+from app.textblob import Text_Sentiment
 
 UNAUTHORIZED = 401
 NOT_FOUND = 404
@@ -33,6 +34,15 @@ def get_posts_by_date(username, timestamp):
 
 def create_post(username, title, content, tags, filename):
     current_time = datetime_to_str(datetime.now())
+    blob = Text_Sentiment()
+    polarity = round(blob.get_sentiment_polarity(content),2)
+
+    if polarity >= -0.5 and polarity <=0.5:
+        sentiment = "neural"
+    elif polarity > 0.5:
+        sentiment = "positive"
+    else:
+        sentiment = "negative"
 
     post = {
         "creator": username,
@@ -42,6 +52,7 @@ def create_post(username, title, content, tags, filename):
         "time_created": current_time,
         "time_edited": current_time,
         "tags": tags,
+        "sentiment" : sentiment,
         "filename": filename
     }
 
@@ -57,11 +68,22 @@ def update_post(username, post_id, title, content, tags, filename):
     
     current_time = datetime_to_str(datetime.now())
 
+    blob = Text_Sentiment()
+    polarity = round(blob.get_sentiment_polarity(content),2)
+
+    if polarity >= -0.5 and polarity <=0.5:
+        sentiment = "neural"
+    elif polarity > 0.5:
+        sentiment = "positive"
+    else:
+        sentiment = "negative"
+
 
     post["title"] = title
     post["content"] = content
     post["time_edited"] = current_time
     post["filename"] = filename
+    post["sentiment"] = sentiment
 
     post["tags"] = tags
 
