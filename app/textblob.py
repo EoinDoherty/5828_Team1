@@ -23,18 +23,18 @@ class Text_Sentiment():
         blob = TextBlob(text)
         return blob.sentiment.polarity
 
-    def clean_text(self, tweet):
+    def clean_text(self, content):
         """
-        Strips URLs, twitter user names, and any punctuations in passed in parameter to enhance sentiment analysis.  
+        Strips URLs and any punctuations in passed in parameter to enhance sentiment analysis.  
             
             Parameters
             ----------
-            tweet_text : string
-                Direct text section from tweet
+            content : string
+                Direct text section 
             
             Returns
             -------
-            cleaned_tweet : string
-                Tweet text section as string without URLs, twitter user names and punctuations.
+            cleaned_string : string
+                 text section as string without URLs and punctuations.
         """
-        return ' '.join(re.sub("(@[A-Za-z0-9]+)|([^0-9A-Za-z \t])|(\w+:\/\/\S+)", " ", tweet).split())
+        return ' '.join(re.sub("(@[A-Za-z0-9]+)|([^0-9A-Za-z \t])|(\w+:\/\/\S+)", " ", content).split())
