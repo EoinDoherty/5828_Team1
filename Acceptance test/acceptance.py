@@ -3,7 +3,7 @@ from selenium import webdriver
 import time
 
 #Location for browser driver
-driver = webdriver.Chrome("./chromedriver.exe")
+driver = webdriver.Chrome()
 
 #Url of the application
 driver.get("https://team1project.appspot.com/")
@@ -68,7 +68,7 @@ if __name__ == "__main__":
     time.sleep(10)
     print("Successfully created new user")
     time.sleep(10)
-    driver.refresh();
+    driver.refresh()
     time.sleep(15)
 
     # Testing login
@@ -90,7 +90,7 @@ if __name__ == "__main__":
     #Testing delete post
     print("Successfully deleted the post")
     test_delete()
-    driver.refresh();
+    driver.refresh()
     time.sleep(10)
 
     #Logging in to test search
@@ -102,7 +102,7 @@ if __name__ == "__main__":
     test_search()
     print("Successfully searched")
     time.sleep(5)
-    driver.refresh();
+    driver.refresh()
 
 
     

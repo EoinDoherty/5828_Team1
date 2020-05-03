@@ -21,6 +21,29 @@ jobs:
           command: python -m pytest
           name: Test
 
+  acceptance-test:
+    executor: python/default
+    steps:
+      - checkout
+      - python/load-cache
+      - python/install-deps
+      - python/save-cache
+      - run:
+          name: "Install chrome driver"
+          command: | 
+            wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
+            echo 'deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main' | sudo tee /etc/apt/sources.list.d/google-chrome.list
+            sudo apt-get update
+            sudo apt-get install google-chrome-stable
+            wget https://chromedriver.storage.googleapis.com/2.35/chromedriver_linux64.zip
+            unzip chromedriver_linux64.zip
+            sudo mv -f chromedriver /usr/local/share/chromedriver
+            sudo ln -s /usr/local/share/chromedriver /usr/local/bin/chromedriver
+            sudo ln -s /usr/local/share/chromedriver /usr/bin/chromedriver
+      - run:
+          name: "Run acceptance test"
+          command: python "Acceptance test/acceptance.py"
+
   deploy:
     executor: node/default
       # name: node/default
@@ -65,6 +88,13 @@ workflows:
       - deploy:
           requires:
             - build-and-test
+          filters:
+            branches:
+              only:
+                - master
+      - acceptance-test:
+          requires:
+            - deploy
           filters:
             branches:
               only:
