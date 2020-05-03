@@ -44,6 +44,8 @@ def create_post(username, title, content, tags, filename):
     else:
         sentiment = "negative"
 
+    tags.append(sentiment)
+
     post = {
         "creator": username,
         "title": title,
@@ -52,7 +54,6 @@ def create_post(username, title, content, tags, filename):
         "time_created": current_time,
         "time_edited": current_time,
         "tags": tags,
-        "sentiment" : sentiment,
         "filename": filename
     }
 
@@ -78,12 +79,14 @@ def update_post(username, post_id, title, content, tags, filename):
     else:
         sentiment = "negative"
 
+    tags.append(sentiment)
+
 
     post["title"] = title
     post["content"] = content
     post["time_edited"] = current_time
     post["filename"] = filename
-    post["sentiment"] = sentiment
+    # post["sentiment"] = sentiment
 
     post["tags"] = tags
 
